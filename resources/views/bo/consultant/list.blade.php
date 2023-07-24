@@ -38,3 +38,5 @@
         });
     });
 </script>
+
+<a href="/admin/consultant/new">New consultant</a>

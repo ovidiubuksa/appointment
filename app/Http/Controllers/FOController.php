@@ -23,7 +23,6 @@ class FOController extends Controller
     {
         if($request->isMethod('post')) {
             // Search for the client by email
-            $email = $request->input("client_email");
             $client = Client::firstOrNew([
                 'email' => $request->input("client_email"),
             ]);
@@ -44,7 +43,7 @@ class FOController extends Controller
             $message['type'] = 'error';
         }
 
-        return redirect()->route('new-appointment-form')->with($message['type'],$message['message']);;
+        return redirect()->route('new-appointment-form')->with($message['type'],$message['message']);
     }
 
     public function getConsultantAppointments(Request $request, int $consultant, string $date): View

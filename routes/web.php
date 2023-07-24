@@ -30,6 +30,7 @@ Route::any('/admin/client', [BOController::class,'clientList'])->name('admin-cli
 Route::any('/admin/client/{id}', [BOController::class,'clientEdit'])->name('admin-client-edit');
 Route::any('/admin/client/{id}/delete', [BOController::class,'clientDelete'])->name('admin-client-delete');
 Route::any('/admin/consultant', [BOController::class,'consultantList'])->name('admin-consultants-list');
+Route::any('/admin/consultant/new', [BOController::class,'consultantNew'])->name('admin-consultant-new');
 Route::any('/admin/consultant/{id}', [BOController::class,'consultantEdit'])->name('admin-consultant-edit');
 Route::any('/admin/consultant/{id}/delete', [BOController::class,'consultantDelete'])->name('admin-consultant-delete');
 Route::any('/admin/appointment', [BOController::class,'appointmentList'])->name('admin-appointments-list');

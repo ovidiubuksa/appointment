@@ -72,7 +72,13 @@ class BOController extends Controller
 
     public function clientEdit(Request $request, int $id)
     {
+        $client = DB::table('client')->where('id', $id)->first();
         if($request->isMethod('post')) {
+            DB::table('client')->where('id',$id)->update([
+                'name'   =>  $request->input('client_name'),
+                'email'  =>  $request->input('client_email'),
+                'phone'  =>  $request->input('client_phone'),
+            ]);
             return redirect()->route('admin-clients-list');
         }
 
@@ -81,11 +87,40 @@ class BOController extends Controller
 
     public function consultantEdit(Request $request, int $id)
     {
+        $employee = DB::table('employee')->where('id', $id)->first();
         if($request->isMethod('post')) {
+            DB::table('employee')->where('id',$id)->update([
+                'name'   =>  $request->input('consultant_name'),
+                'email'  =>  $request->input('consultant_email'),
+                'phone'  =>  $request->input('consultant_phone'),
+            ]);
             return redirect()->route('admin-consultants-list');
         }
 
         return view('bo.consultant.edit',['consultant'=>$employee]);
+    }
+
+    public function consultantNew(Request $request)
+    {
+        if($request->isMethod('post')) {
+            $consultant = Employee::firstOrNew([
+                'email' => $request->input("consultant_email"),
+            ]);
+            $consultant->name = $request->input("consultant_name");
+            $consultant->phone = $request->input("consultant_phone");
+            $consultant->save();
+            $message['message'] = "Consultant registered";
+            $message['type'] = 'success';
+        } else {
+            $message['message'] = "Consultant not registered";
+            $message['type'] = 'error';
+        }
+
+        if($request->isMethod('post')) {
+            return redirect()->route('admin-consultants-list')->with($message['type'],$message['message']);
+        } else {
+            return view('bo.consultant.new');
+        }
     }
 
     public function appointmentEdit(Request $request, int $id)
